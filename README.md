@@ -7,6 +7,50 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Greenfund Watchdog (Laravel Migration)
+
+This repository contains the Laravel migration of the stock analytics platform,
+including backend APIs and frontend dashboards.
+
+### Shipped Scope
+
+- Full Laravel backend with watchlist, analytics, signals, alerts, and forecast APIs.
+- Forecasting engine with champion/challenger model roles and governance-ready schema.
+- Engine observability endpoints for health, quality, and metrics.
+- Frontend Blade pages for dashboard, market, screener, ticker detail, and decision console.
+- Scheduled commands for scan, forecast generation, and forecast evaluation.
+
+### Key API Endpoints
+
+- `GET /api/watchlist`
+- `GET /api/analytics/{ticker}`
+- `GET /api/forecasts`
+- `GET /api/forecasts/{ticker}`
+- `POST /api/forecasts/generate`
+- `GET /api/engine/health`
+- `GET /api/engine/quality/{ticker}`
+- `GET /api/engine/metrics`
+
+### Web Routes
+
+- `GET /` dashboard
+- `GET /market`
+- `GET /screener`
+- `GET /ticker/{ticker}`
+- `GET /decision-console`
+
+### Quick Start
+
+```bash
+cp .env.example .env
+composer install
+php artisan key:generate
+php artisan migrate --seed
+npm install
+npm run build
+php artisan serve
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
