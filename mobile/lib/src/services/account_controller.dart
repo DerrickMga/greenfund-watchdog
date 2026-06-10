@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/account_models.dart';
@@ -118,7 +121,15 @@ class AccountController extends ChangeNotifier {
       return error.message;
     }
 
-    return 'Could not reach the account service.';
+    if (error is TimeoutException) {
+      return 'The account service timed out. Check your connection and try again.';
+    }
+
+    if (error is http.ClientException) {
+      return 'Could not reach https://vpn.kmgvitallinks.com. Check DNS, HTTPS, and server status.';
+    }
+
+    return 'Could not reach the account service. Check DNS, HTTPS, and server status.';
   }
 
   void _setState(AccountState next) {

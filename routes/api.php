@@ -8,7 +8,18 @@ use App\Http\Controllers\Api\ForecastController;
 use App\Http\Controllers\Api\EngineController;
 use App\Http\Controllers\Api\MobileAuthController;
 use App\Http\Controllers\Api\SubscriptionController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/mobile/health', function () {
+    DB::connection()->getPdo();
+
+    return response()->json([
+        'status' => 'ok',
+        'service' => 'greenfund-vpn-account',
+        'time' => now()->toIso8601String(),
+    ]);
+});
 
 Route::post('/mobile/register', [MobileAuthController::class, 'register']);
 Route::post('/mobile/login', [MobileAuthController::class, 'login']);

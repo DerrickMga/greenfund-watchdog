@@ -12,7 +12,7 @@ class AccountApi {
         _baseUrl = baseUrl ??
             const String.fromEnvironment(
               'API_BASE_URL',
-              defaultValue: 'http://10.0.2.2:8000/api',
+              defaultValue: 'https://vpn.kmgvitallinks.com/api',
             );
 
   final http.Client _client;
@@ -79,10 +79,12 @@ class AccountApi {
   }
 
   Future<Map<String, dynamic>> _get(String path, {String? token}) async {
-    final response = await _client.get(
-      Uri.parse('$_baseUrl$path'),
-      headers: _headers(token),
-    );
+    final response = await _client
+        .get(
+          Uri.parse('$_baseUrl$path'),
+          headers: _headers(token),
+        )
+        .timeout(const Duration(seconds: 20));
 
     return _decode(response);
   }
@@ -92,11 +94,13 @@ class AccountApi {
     Map<String, dynamic> body, {
     String? token,
   }) async {
-    final response = await _client.post(
-      Uri.parse('$_baseUrl$path'),
-      headers: _headers(token),
-      body: jsonEncode(body),
-    );
+    final response = await _client
+        .post(
+          Uri.parse('$_baseUrl$path'),
+          headers: _headers(token),
+          body: jsonEncode(body),
+        )
+        .timeout(const Duration(seconds: 20));
 
     return _decode(response);
   }
@@ -110,13 +114,30 @@ class AccountApi {
   }
 
   Map<String, dynamic> _decode(http.Response response) {
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    final decoded = _tryDecode(response.body);
 
     if (response.statusCode >= 400) {
-      throw AccountApiException(json['message']?.toString() ?? 'Request failed.');
+      throw AccountApiException(
+        decoded?['message']?.toString() ??
+            'Account service returned ${response.statusCode}.',
+      );
     }
 
-    return json;
+    if (decoded == null) {
+      throw const AccountApiException(
+        'Account service returned an unreadable response.',
+      );
+    }
+
+    return decoded;
+  }
+
+  Map<String, dynamic>? _tryDecode(String body) {
+    try {
+      return jsonDecode(body) as Map<String, dynamic>;
+    } on FormatException {
+      return null;
+    }
   }
 
   void close() {

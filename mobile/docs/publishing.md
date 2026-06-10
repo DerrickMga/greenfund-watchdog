@@ -6,6 +6,16 @@ Flutter is installed on this Windows machine and can build/test the Flutter app.
 Android publishing still needs Android Studio or the Android command-line SDK.
 iOS publishing must be done on macOS with Xcode and an Apple Developer account.
 
+The production account API URL is `https://vpn.kmgvitallinks.com/api`.
+
+Before publishing a new mobile build, verify:
+
+```powershell
+Invoke-WebRequest https://vpn.kmgvitallinks.com/api/mobile/health -UseBasicParsing
+```
+
+If that does not return JSON with `status: ok`, account creation will fail.
+
 ## Android release
 
 1. Install Android Studio or the Android SDK command-line tools.

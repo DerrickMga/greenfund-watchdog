@@ -36,10 +36,10 @@ Android should implement those methods with `VpnService` or a WireGuard userspac
 
 ## Account API
 
-By default Android emulators call `http://10.0.2.2:8000/api`. Override the API URL at build/run time:
+By default production builds call `https://vpn.kmgvitallinks.com/api`. Override the API URL at build/run time:
 
 ```bash
-flutter run --dart-define API_BASE_URL=https://your-domain.com/api
+flutter run --dart-define API_BASE_URL=http://10.0.2.2:8000/api
 ```
 
 See `docs/publishing.md` for release build commands.
