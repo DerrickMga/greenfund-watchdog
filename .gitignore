@@ -20,7 +20,17 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/.tools
+/.wireguard
 /vendor
+/mobile/.dart_tool
+/mobile/.flutter-plugins
+/mobile/.flutter-plugins-dependencies
+/mobile/build
+/mobile/ios/Flutter/ephemeral
+/mobile/android/.gradle
+/mobile/android/key.properties
+/mobile/release
 _ide_helper.php
 Homestead.json
 Homestead.yaml

@@ -1,0 +1,4 @@
+storePassword=change-me
+keyPassword=change-me
+keyAlias=greenfund-vpn
+storeFile=../release/greenfund-vpn-upload-keystore.jks

@@ -36,7 +36,7 @@ return [
     ],
 
     'finnhub' => [
-        'key' => env('FINNHUB_API_KEY'),
+        'key' => env('FINNHUB_API_KEY', ''),
     ],
 
 ];

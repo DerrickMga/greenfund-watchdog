@@ -19,6 +19,7 @@ including backend APIs and frontend dashboards.
 - Engine observability endpoints for health, quality, and metrics.
 - Frontend Blade pages for dashboard, market, screener, ticker detail, and decision console.
 - Scheduled commands for scan, forecast generation, and forecast evaluation.
+- Flutter VPN mobile client scaffold in `mobile/`.
 
 ### Key API Endpoints
 

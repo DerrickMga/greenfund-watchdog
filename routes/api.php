@@ -6,7 +6,20 @@ use App\Http\Controllers\Api\WatchlistController;
 use App\Http\Controllers\Api\AnalyticsController;
 use App\Http\Controllers\Api\ForecastController;
 use App\Http\Controllers\Api\EngineController;
+use App\Http\Controllers\Api\MobileAuthController;
+use App\Http\Controllers\Api\SubscriptionController;
 use Illuminate\Support\Facades\Route;
+
+Route::post('/mobile/register', [MobileAuthController::class, 'register']);
+Route::post('/mobile/login', [MobileAuthController::class, 'login']);
+Route::get('/mobile/subscription-plans', [SubscriptionController::class, 'plans']);
+
+Route::middleware('mobile.auth')->group(function () {
+    Route::get('/mobile/me', [MobileAuthController::class, 'me']);
+    Route::post('/mobile/logout', [MobileAuthController::class, 'logout']);
+    Route::get('/mobile/subscription', [SubscriptionController::class, 'show']);
+    Route::post('/mobile/subscription/select-plan', [SubscriptionController::class, 'selectPlan']);
+});
 
 // Watchlist CRUD
 Route::get('/watchlist',                   [WatchlistController::class, 'index']);
